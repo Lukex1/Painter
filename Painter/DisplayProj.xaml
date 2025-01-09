@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Painter.DisplayProj"
+             Title="Projects">
+    <VerticalStackLayout Padding="15" Spacing="20">
+        <Label 
+            Text="Zapisane pliki PDF:" 
+            FontSize="24" 
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+        />
+
+        <CollectionView x:Name="FilesCollectionView"
+                        ItemsSource="{Binding PdfFiles}"
+                        SelectionMode="Single"
+                        SelectionChanged="FilesCollectionView_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="15" Margin="10" BorderColor="LightGray" CornerRadius="10" BackgroundColor="White" HasShadow="True">
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" />
+                            <Label Text="{Binding CreationDate}" FontSize="12" VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

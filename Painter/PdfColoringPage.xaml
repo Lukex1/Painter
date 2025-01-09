@@ -1,0 +1,104 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Painter.PdfColoringPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
+             Title="PDF Coloring">
+
+    <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="Auto, *">
+
+
+        <StackLayout Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="#6200EE" Padding="10">
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+            <Label Text="No file selected"
+                   x:Name="FileNameLabel"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Start" 
+                   VerticalOptions="Center"/>
+            <Button Text="Choose PDF File"
+                    BackgroundColor="#6200EE"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Padding="10"
+                    CornerRadius="5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="OnChoosePdfFileClicked"/>
+                <Button Text="Save PDF File"
+                    x:Name="SavePdf"
+                    BackgroundColor="#6200EE"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Padding="10"
+                    CornerRadius="5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="SavePdf_Clicked"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+        <StackLayout Grid.Row="1" Grid.Column="1" IsVisible="True"
+                     HorizontalOptions="Center" 
+                     VerticalOptions="Center"
+                     x:Name="LoadingScreen">
+            <Label Text="Ładowanie strony PDF..." FontSize="20"/>
+            <ProgressBar x:Name="ProgressbarLoading" HeightRequest="10" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Progress="0"/>
+        </StackLayout>
+        <ScrollView Grid.Row="1" Grid.Column="0" BackgroundColor="#F2F2F2" Padding="5">
+            <VerticalStackLayout x:Name="PdfThumbnails" Spacing="10" HorizontalOptions="FillAndExpand">
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <StackLayout Grid.Row="1" Grid.Column="1">
+            <skia:SKCanvasView x:Name="CanvasView" PaintSurface="CanvasView_PaintSurface" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1" Grid.Column="1">
+            <skia:SKCanvasView x:Name="DrawingView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" PaintSurface="DrawingView_PaintSurface" EnableTouchEvents="True" Touch="DrawingView_Touch"/>
+        </StackLayout>
+
+        <!-- Przycisk wyboru PDF na dole -->
+        <StackLayout Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Padding="10" Spacing="15">
+            <Button ImageSource="brush.png" WidthRequest="50" HeightRequest="40" Clicked="Marker"/>
+            <Button Text="Color Picker" WidthRequest="50" HeightRequest="40" Clicked="ColorPicker"/>
+            <Button Text="Gumka" WidthRequest="50" HeightRequest="40" Clicked="Gumka"/>
+            <Button Text="Opcje" WidthRequest="50" HeightRequest="40" Clicked="Opcje"/>
+        </StackLayout>
+
+        <Frame ZIndex="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="SaveFileInfo" IsVisible="False">
+            <StackLayout>
+                <Label Text="Save PDF Project" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Entry Placeholder="Type name of pdf file" x:Name="SaveFileText"/>
+                <Button x:Name="SaveButton" Text="Save" Scale="0.75" Clicked="SaveButton_Clicked"/>
+            </StackLayout>
+        </Frame>
+        
+        <AbsoluteLayout Grid.Row="1" Grid.ColumnSpan="2">
+            <Frame x:Name="FrameColorPicker" IsVisible="False"
+                   AbsoluteLayout.LayoutBounds="0.5,1,300,200"
+                   AbsoluteLayout.LayoutFlags="PositionProportional">
+                <controls:ColorPicker
+    x:Name="MyColorPicker"
+    ColorFlowDirection="Horizontal"
+    ColorSpectrumStyle="ShadeToHueStyle"
+    PointerRingBorderUnits="0.3"
+    PointerRingDiameterUnits="0.7"
+    PickedColorChanged="MyColorPicker_PickedColorChanged"
+    PickedColor="{Binding UserPickerColor}">
+                </controls:ColorPicker>
+            </Frame>
+        </AbsoluteLayout>
+        <AbsoluteLayout Grid.Row="1" Grid.ColumnSpan="3">
+            <Frame x:Name="FrameOpcje" IsVisible="False" 
+            AbsoluteLayout.LayoutBounds="0.9,1,200,150"
+            AbsoluteLayout.LayoutFlags="PositionProportional">
+                <StackLayout>
+                    <Slider Minimum="0" Maximum="100" ValueChanged="Opacity_ValueChanged" Value="100"/>
+                    <Label x:Name="OpacityLevel" Text="Przezroczystosc: 100" HorizontalOptions="Center" FontSize="10"/>
+                    <Slider Minimum="1" Maximum="100" ValueChanged="Size_ValueChanged" Value="10"/>
+                    <Label x:Name="SizeLevel" Text="Rozmiar: 10" HorizontalOptions="Center" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>

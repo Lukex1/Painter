@@ -1,0 +1,41 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Painter.MainPage"
+             BackgroundColor="White"
+             Title="">
+    <VerticalStackLayout Spacing="20" Padding="20">
+        <Label Text="Welcome Back!" FontSize="20" FontAttributes="Bold" TextColor="#333" HorizontalOptions="Center"/>
+        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="15">
+            <Frame BackgroundColor="#E6F5FF" CornerRadius="15" Padding="10" Grid.Row="0" Grid.Column="0">
+                <VerticalStackLayout Spacing="10">
+                    <Image Source="new_proj.png" HeightRequest="40" />
+                    <Button Text="New Project" FontSize="14" BackgroundColor="#007BFF" TextColor="White" CornerRadius="10" Clicked="OnNewProjectClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame BackgroundColor="#FFF7E6" CornerRadius="15" Padding="10" Grid.Row="0" Grid.Column="1">
+                <VerticalStackLayout Spacing="10">
+                    <Image Source="pdf.png" HeightRequest="40" />
+                        <Button Text="Open Project" 
+                            FontSize="14" 
+                            BackgroundColor="#FFA500" 
+                            TextColor="White" 
+                            CornerRadius="10" 
+                            x:Name="OpenProj"
+                            />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F3F3F3" CornerRadius="15" Padding="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <Button Text="Log in with Discord"
+                        FontSize="14"
+                        Background="#7289DA"
+                        TextColor="White"
+                        CornerRadius="10"/>
+                </HorizontalStackLayout>
+            </Frame>
+        </Grid>
+        
+    </VerticalStackLayout>
+
+</ContentPage>
